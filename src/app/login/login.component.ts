@@ -1,0 +1,45 @@
+import { Component, OnInit } from '@angular/core';
+import {UserService} from '../user/user.service';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+  public email: string = '';
+  public password: string = '';
+  public isInvalidEmail: Boolean;
+  public isInvalidPass: Boolean;
+  constructor(private userService: UserService,
+              private router: Router) { }
+
+  ngOnInit() {
+  }
+  submit() {
+    if (!this.email && !this.password) {
+      this.isInvalidEmail = true;
+      this.isInvalidPass = true;
+    } else if (!this.email && this.password) {
+      this.isInvalidEmail = true;
+      this.isInvalidPass = false;
+    } else if (this.email && !this.password) {
+      this.isInvalidEmail = false;
+      this.isInvalidPass = true;
+    } else {
+       this.isInvalidEmail = false;
+      this.isInvalidPass = false;
+      this.userService.login(this.email, this.password).subscribe((response: any)=>{
+        if(response.status ===200){
+             localStorage.setItem('token', response.token);
+             localStorage.setItem('userId', this.email);
+            this.router.navigateByUrl('/home');
+
+        }
+
+      });
+    }
+
+  }
+}
