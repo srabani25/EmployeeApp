@@ -7,7 +7,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  public menuItems = [{url:'/home', name: 'Home'},
+                      {url:'/home/orders', name: 'Order'}];
+  public options = [{url:'/home', name: 'Home'},
+                      {url:'/projects', name: 'Project'},
+                      {url:'/orders', name: 'Order'}];
   constructor(private router: Router) {
 
    }
@@ -19,6 +23,9 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
 
 
+  }
+  navigateTo(url){
+    this.router.navigateByUrl(url);
   }
 
 }

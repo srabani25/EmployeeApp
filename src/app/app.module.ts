@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { AlertComponent } from './shared/components/alert/alert.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     UserComponent,
     HeaderComponent,
     FooterComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

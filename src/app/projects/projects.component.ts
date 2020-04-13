@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AlertService} from '../shared/components/alert/alert.service';
 
 @Component({
   selector: 'app-projects',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-
-  constructor() { }
+options = {
+        autoClose: false,
+        keepAfterRouteChange: false
+    };
+  constructor(private alertService: AlertService) { }
 
   ngOnInit() {
   }
