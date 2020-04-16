@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../shared/components/alert/alert.service';
@@ -9,6 +9,7 @@ import {AlertService} from '../shared/components/alert/alert.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  // @ViewChild('cont', {true,true}) cont: ElementRef;
   public email: string = '';
   public password: string = '';
   public isInvalidEmail: Boolean;
@@ -48,6 +49,11 @@ export class LoginComponent implements OnInit {
 
       });
     }
+
+  }
+  toggle(){
+     document.querySelector('.cont').classList.toggle('s--signup');
+
 
   }
 }
