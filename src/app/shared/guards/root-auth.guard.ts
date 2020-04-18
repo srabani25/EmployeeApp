@@ -8,8 +8,9 @@ import {environment} from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RootAuthGuard implements CanActivate {
-  constructor(private router: Router,
-              private httpClient: HttpClient) {}
+  constructor(private router: Router) {
+
+  }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let token = localStorage.getItem('token');
