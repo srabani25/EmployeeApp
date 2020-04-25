@@ -1,1 +1,70 @@
-<p>orders works!</p>
+<div class="container base" [ngClass]="{'baseBlur':showForm}">
+    <div>
+     <button type="button" class="btn btn-primary" (click)="showForm=true">Add Book Info</button>
+    </div>
+    <div class="tableWrapper">
+    <p-table [value]="books" [paginator]="true" [rows]="5" [rowHover]="true"
+           [rowsPerPageOptions]="[5,10,15]" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Price In Dollars</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+        <tr>
+            <td>{{book.name}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.price}}</td>
+        </tr>
+    </ng-template>
+  </p-table>
+    </div>
+  <br>
+ </div>
+<div *ngIf="showForm" class="card m-3 formOverlay" >
+    <div class="card-header alignHeader">
+     <span style="float:left">
+      <h5>Enter Book Details</h5>
+     </span>
+     <span style="margin-left:80%">
+      <h5 (click)="showForm=false" >X</h5>
+     </span>
+    </div>
+    <div class="card-body">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"  novalidate>
+            <div class="form-row ">
+                <div class="form-group col-10">
+                    <label>Book Name</label>
+                    <input type="text" name="bookName" class="form-control" [(ngModel)]="model.bookName" #bookName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && bookName.invalid }" required>
+                    <div *ngIf="f.submitted && bookName.invalid" class="invalid-feedback">
+                        <div *ngIf="bookName.errors.required">Book Name is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row ">
+              <div class="form-group col-10">
+                <label>Author Name</label>
+                <input type="text" name="authorName" class="form-control" [(ngModel)]="model.authorName" #authorName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && authorName.invalid }" required >
+                <div *ngIf="f.submitted && authorName.invalid" class="invalid-feedback">
+                    <div *ngIf="authorName.errors.required">AuthorName is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row ">
+              <div class="form-group col-10">
+                <label>Price</label>
+                <input type="text" name="price" class="form-control" [(ngModel)]="model.price" #price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }" required >
+                <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+                    <div *ngIf="price.errors.required">Price is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">Register</button>
+                <button class="btn btn-secondary" type="reset">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

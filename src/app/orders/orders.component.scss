@@ -1,0 +1,27 @@
+.base{
+    position: absolute  ;
+    left: 5%;
+    top: 20%;
+
+}
+.tableWrapper{
+  position: unset;
+   height: 90%;
+   overflow-y: scroll;
+   overflow-x: hidden;
+}
+.formOverlay{
+    position: relative;
+    z-index: 1;
+    left: 25%
+}
+.baseBlur{
+    filter: blur(3px);
+}
+.alignX{
+    margin-left: 98%;
+}
+.alignHeader{
+
+    display: flex;
+}
