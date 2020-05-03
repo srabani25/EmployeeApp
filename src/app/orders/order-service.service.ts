@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
-export interface Book {  name;  price;  author; _id;
+export interface Book {   name;  price;  author; _id;
 }
 @Injectable({
   providedIn: 'root'
@@ -20,5 +20,14 @@ constructor(private http: HttpClient) {}
 addBooks(payload){
 
   return this.http.post( environment.baseURL + 'api/book/create',payload );
+}
+deleteBooks(id){
+  const payload = {"id":id};
+  return this.http.post( environment.baseURL +'api/book/delete', payload);
+
+}
+getBooksWithLimit(skip, limit){
+  const payload = {"limit": limit, "skip" : skip}
+  return this.http.post(environment.baseURL +'api/book/getBook', payload);
 }
 }

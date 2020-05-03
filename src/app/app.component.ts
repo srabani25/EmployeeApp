@@ -7,10 +7,6 @@ import {Router, NavigationEnd} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-// export class AppComponent {
-//   title = 'employee';
-//   misthi = "abc"
-// }
 
 export class AppComponent implements OnInit {
   headerFooter: boolean;

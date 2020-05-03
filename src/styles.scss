@@ -3,7 +3,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("//fonts.googleapis.com/css?family=opensans:500");
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 
@@ -44,3 +45,7 @@ display: block;
      height: 100%;
      margin: 0;
      }
+.ui-table-scrollable-header {
+
+    width: 100% !important;
+}

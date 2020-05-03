@@ -1,59 +1,81 @@
 <div class="container base" [ngClass]="{'baseBlur':showForm}">
     <div>
      <button type="button" class="btn btn-primary" (click)="showForm=true">Add Book Info</button>
+     <button type="button" class="btn btn-primary" (click)="delete()">Delete Info</button>
     </div>
     <div class="tableWrapper">
-    <p-table [value]="books" [paginator]="true" [rows]="5" [rowHover]="true"
-           [rowsPerPageOptions]="[5,10,15]" >
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Price In Dollars</th>
+    <p-table #table [columns]="cols" [value]="virtualBooks"
+        [scrollable]="true" [rows]="5" scrollHeight="350px"
+        [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
+        [lazy]="true" [totalRecords]="totalRecords" [virtualRowHeight]="34"
+        [(selection)]="selectedBooks">
+   <ng-template pTemplate="header" let-columns>
+
+        <tr style="height:34px">
+            <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-book>
-        <tr>
-            <td>{{book.name}}</td>
-            <td>{{book.author}}</td>
-            <td>{{book.price}}</td>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr style="height:34px">
+            <td style="width: 3em">
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody" let-columns="columns">
+        <tr style="height:34px">
+            <td *ngFor="let col of columns">
+                <div class="loading-text"></div>
+            </td>
         </tr>
     </ng-template>
   </p-table>
     </div>
   <br>
  </div>
-<div *ngIf="showForm" class="card m-3 formOverlay" >
-    <div class="card-header alignHeader">
-     <span style="float:left">
-      <h5>Enter Book Details</h5>
-     </span>
-     <span style="margin-left:80%">
-      <h5 (click)="showForm=false" >X</h5>
-     </span>
+
+<div *ngIf="showForm" class="formOverlay">
+<div class="card m-3 formArea" >
+    <div class="card-header">
+    <div class="row">
+        <div class="col-11">
+         <h3>Enter Book Details</h3>
+        </div>
+        <div class="col-1">
+        <h3 (click)="showForm=false" ><span class="fa fa-close"></span></h3>
+        </div>
+    </div>
     </div>
     <div class="card-body">
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"  novalidate>
             <div class="form-row ">
-                <div class="form-group col-10">
+                <div class="form-group col">
                     <label>Book Name</label>
-                    <input type="text" name="bookName" class="form-control" [(ngModel)]="model.bookName" #bookName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && bookName.invalid }" required>
-                    <div *ngIf="f.submitted && bookName.invalid" class="invalid-feedback">
-                        <div *ngIf="bookName.errors.required">Book Name is required</div>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="model.name" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                        <div *ngIf="name.errors.required">Book Name is required</div>
                     </div>
                 </div>
             </div>
             <div class="form-row ">
-              <div class="form-group col-10">
+              <div class="form-group col">
                 <label>Author Name</label>
-                <input type="text" name="authorName" class="form-control" [(ngModel)]="model.authorName" #authorName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && authorName.invalid }" required >
-                <div *ngIf="f.submitted && authorName.invalid" class="invalid-feedback">
-                    <div *ngIf="authorName.errors.required">AuthorName is required</div>
+                <input type="text" name="author" class="form-control" [(ngModel)]="model.author" #author="ngModel" [ngClass]="{ 'is-invalid': f.submitted && author.invalid }" required >
+                <div *ngIf="f.submitted && author.invalid" class="invalid-feedback">
+                    <div *ngIf="author.errors.required">author is required</div>
                 </div>
               </div>
             </div>
             <div class="form-row ">
-              <div class="form-group col-10">
+              <div class="form-group col">
                 <label>Price</label>
                 <input type="text" name="price" class="form-control" [(ngModel)]="model.price" #price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }" required >
                 <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
@@ -61,10 +83,13 @@
                 </div>
               </div>
             </div>
-            <div class="text-center">
+            <div class="form-row">
+            <div class="form-group col saveAndCancelButton">
                 <button class="btn btn-primary mr-1">Register</button>
-                <button class="btn btn-secondary" type="reset">Cancel</button>
+                <button class="btn btn-secondary"  type="reset">Clear</button>
+            </div>
             </div>
         </form>
     </div>
+</div>
 </div>
